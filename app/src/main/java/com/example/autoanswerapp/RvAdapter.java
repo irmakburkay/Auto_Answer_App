@@ -7,11 +7,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class RvAdapter extends RecyclerView.Adapter<RvAdapter.RvViewHolder> {
@@ -50,10 +50,11 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.RvViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RvViewHolder holder, int position) {
         Class2 item = class2s.get(position);
+        SimpleDateFormat dt = new SimpleDateFormat("HH:mm");
 
         holder.textView1.setText(item.name);
         holder.textView2.setText(item.tel);
-        holder.textView3.setText(item.date1.getHours()+" - "+item.date2.getHours());
+        holder.textView3.setText(dt.format(item.date1) + " - " + dt.format(item.date2));
         holder.switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
         });

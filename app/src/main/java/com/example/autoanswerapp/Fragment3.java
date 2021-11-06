@@ -1,18 +1,20 @@
 package com.example.autoanswerapp;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,18 +70,57 @@ public class Fragment3 extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment3, container, false);
 
+
+        SimpleDateFormat dt = new SimpleDateFormat("HH:mm");
+        Date date1 = new Date();
+        Date date2 = new Date();
         TextView name = (TextView) view.findViewById(R.id.editTextTextPersonName);
         TextView tel = (TextView) view.findViewById(R.id.editTextPhone);
+        TextView time1 = (TextView) view.findViewById(R.id.textViewTime1);
+        TextView time2 = (TextView) view.findViewById(R.id.textViewTime2);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.floatingActionButton3);
         FloatingActionButton fab2 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton4);
+
+        time1.setOnClickListener(v -> {
+            TimePickerDialog tpd = new TimePickerDialog(getContext(),
+                    new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minuteOfDay) {
+                            date1.setHours(hourOfDay);
+                            date1.setMinutes(minuteOfDay);
+                            time1.setText(dt.format(date1));
+                        }
+                    }, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), true);
+            tpd.setButton(TimePickerDialog.BUTTON_POSITIVE, "Set", tpd);
+            tpd.setButton(TimePickerDialog.BUTTON_NEGATIVE, "Cancel", tpd);
+            tpd.show();
+        });
+
+        time2.setOnClickListener(v -> {
+            TimePickerDialog tpd = new TimePickerDialog(getContext(),
+                    new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minuteOfDay) {
+                            date2.setHours(hourOfDay);
+                            date2.setMinutes(minuteOfDay);
+                            time2.setText(dt.format(date2));
+                        }
+                    }, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), true);
+            tpd.setButton(TimePickerDialog.BUTTON_POSITIVE, "Set", tpd);
+            tpd.setButton(TimePickerDialog.BUTTON_NEGATIVE, "Cancel", tpd);
+            tpd.show();
+        });
+
         fab.setOnClickListener(v -> {
             MainActivity.floatingActionButton.performClick();
-            Fragment2.addItem(0, name.getText().toString(), tel.getText().toString());
+            Fragment2.addItem(0, name.getText().toString(), tel.getText().toString(), date1, date2);
             if(!MainActivity.tabLayout.getTabAt(1).isSelected()){
                 MainActivity.tabLayout.getTabAt(1).select();
             }
         });
+        fab2.setOnClickListener(v -> {
 
+        });
         //saat aralığı seçip parametreye yolla
 
         return view;
