@@ -61,6 +61,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.RvViewHolder> {
             //düzenleme fab
         });
         holder.fab2.setOnClickListener(v -> {
+            holder.fab2.setClickable(false);
             class2s.remove(holder.getAdapterPosition());
             notifyItemRemoved(holder.getAdapterPosition());
         });
