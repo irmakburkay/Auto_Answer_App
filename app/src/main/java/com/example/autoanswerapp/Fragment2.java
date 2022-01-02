@@ -105,10 +105,10 @@ public class Fragment2 extends Fragment {
 
         return view;
     }
-    public static void addItem(int position, String name, String tel)
+    public static void addItem(int position, String name, String tel, Date date1, Date date2)
     {
 
-        items.add(position, new Class2(name,tel,new Date(),new Date()));
+        items.add(position, new Class2(name, tel, date1, date2));
         recyclerView.smoothScrollToPosition(0);
         adapter.notifyItemInserted(position);
 
